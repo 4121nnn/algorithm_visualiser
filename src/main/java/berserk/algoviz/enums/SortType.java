@@ -1,6 +1,6 @@
 package berserk.algoviz.enums;
 
-public enum AlgoName {
+public enum SortType {
     BUBBLE_SORT,
-    SELECTIONS_SORT
+    SELECTION_SORT
 }

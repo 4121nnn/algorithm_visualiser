@@ -1,7 +1,6 @@
 .bar {
     display: inline-block;
-    width: 30px;
-    height: 50px;
-    margin: 5px;
+    width: 2px;
+    margin: 0px;
     background-color: #3498db;
 }

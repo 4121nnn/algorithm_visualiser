@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AlgoSettings{
-
     private int length;
     private int lowerBound = 0;
     private int upperBound = 100;
