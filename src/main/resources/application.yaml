@@ -1,0 +1,10 @@
+spring:
+  application:
+    name:
+      algoviz
+  main:
+    banner-mode: "off"
+
+logging:
+    level:
+      root: info
