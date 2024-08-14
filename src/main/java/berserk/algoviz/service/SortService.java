@@ -2,6 +2,8 @@ package berserk.algoviz.service;
 
 import berserk.algoviz.algorithms.Sortable;
 import berserk.algoviz.algorithms.impl.sort.BubbleSort;
+import berserk.algoviz.algorithms.impl.sort.InsertionSort;
+import berserk.algoviz.algorithms.impl.sort.MergeSort;
 import berserk.algoviz.algorithms.impl.sort.SelectionSort;
 import berserk.algoviz.enums.SortType;
 import berserk.algoviz.model.AlgoResult;
@@ -10,8 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import static berserk.algoviz.enums.SortType.BUBBLE_SORT;
-import static berserk.algoviz.enums.SortType.SELECTION_SORT;
+import static berserk.algoviz.enums.SortType.*;
 
 @Service
 public class SortService {
@@ -24,13 +25,15 @@ public class SortService {
         sortableList = new HashMap<>();
         sortableList.put(BUBBLE_SORT, new BubbleSort());
         sortableList.put(SELECTION_SORT, new SelectionSort());
+        sortableList.put(INSERTION_SORT, new InsertionSort());
+        sortableList.put(MERGE_SORT, new MergeSort());
     }
 
-    public List<AlgoResult> getResults(List<SortType> sortTypes){
-        int[] array = generateArray(200);
+    public List<AlgoResult> getAllResults() {
+        int[] array = generateArray(100);
         List<AlgoResult> algoResults = new ArrayList<>();
 
-        for(SortType sortType : sortTypes){
+        for(SortType sortType : sortableList.keySet()){
             algoResults.add(sortableList.get(sortType).sort(array.clone()));
         }
         return algoResults;
@@ -54,6 +57,7 @@ public class SortService {
         array[i] = array[j];
         array[j] = temp;
     }
+
 
 
 }

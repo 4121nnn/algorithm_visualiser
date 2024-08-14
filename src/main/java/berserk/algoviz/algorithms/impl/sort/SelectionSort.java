@@ -6,6 +6,7 @@ import berserk.algoviz.model.LanguagePerformance;
 import berserk.algoviz.model.Step;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static berserk.algoviz.enums.LanguageType.JAVA;
@@ -53,7 +54,6 @@ public class SelectionSort implements Sortable {
             swap(copyArray2, i, minIndex);
         }
         languagePerformances.add(new LanguagePerformance(JAVA, milliSeconds));
-
         return new AlgoResult(SELECTION_SORT, steps, languagePerformances, nums);
     }
 
