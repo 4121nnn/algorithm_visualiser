@@ -1,6 +1,7 @@
 package berserk.algoviz.algorithms;
 
 import berserk.algoviz.model.AlgoResult;
+import berserk.algoviz.model.Move;
 
 import java.util.List;
 

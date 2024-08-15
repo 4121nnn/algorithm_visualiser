@@ -6,5 +6,7 @@ public enum SortType {
     INSERTION_SORT,
     MERGE_SORT,
     QUICK_SORT,
-    RADIX_SORT
+    RADIX_SORT,
+    HEAP_SORT,
+    BUCKET_SORT
 }

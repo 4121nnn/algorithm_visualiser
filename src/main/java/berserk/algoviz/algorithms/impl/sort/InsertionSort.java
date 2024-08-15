@@ -2,25 +2,22 @@ package berserk.algoviz.algorithms.impl.sort;
 
 import berserk.algoviz.algorithms.Sortable;
 import berserk.algoviz.model.AlgoResult;
-import berserk.algoviz.model.LanguagePerformance;
-import berserk.algoviz.model.Step;
+import berserk.algoviz.model.Move;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static berserk.algoviz.enums.LanguageType.JAVA;
 import static berserk.algoviz.enums.SortType.INSERTION_SORT;
 
 public class InsertionSort implements Sortable {
 
     @Override
     public AlgoResult sort(int[] nums) {
+        List<Move> moves = new ArrayList<>();
         int n = nums.length;
         int[] copy1 = nums.clone();
         int[] copy2 = nums.clone();
-        List<Step> steps = new ArrayList<>();
-        List<LanguagePerformance>  languagePerformances = new ArrayList<>();
+
 
         long start = System.nanoTime();
         for(int i = 1; i < n; i++){
@@ -40,15 +37,14 @@ public class InsertionSort implements Sortable {
             int key = copy2[i];
             int j = i - 1;
             while(j >= 0 && copy2[j] > key){
+                moves.add(new Move(j + 1, copy2[j]));
                 copy2[j + 1] = copy2[j];
-                steps.add(new Step(j + 1, j, true));
                 j--;
             }
+            moves.add(new Move(j + 1, key));
             copy2[j + 1] = key;
         }
-        List<LanguagePerformance> performances = new ArrayList<>();
-        performances.add(new LanguagePerformance(JAVA, timing));
 
-        return new AlgoResult(INSERTION_SORT,steps, performances, nums);
+        return new AlgoResult(INSERTION_SORT, moves, nums, timing);
     }
 }

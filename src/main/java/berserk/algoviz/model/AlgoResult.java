@@ -5,5 +5,5 @@ import berserk.algoviz.enums.SortType;
 import java.util.List;
 
 
-public record AlgoResult(SortType sortType, List<Step> steps, List<LanguagePerformance> languagePerformances, int[] nonSortedArray) {
+public record AlgoResult(SortType sortType, List<Move> moves, int[] nonSortedArray, double timing) {
 }

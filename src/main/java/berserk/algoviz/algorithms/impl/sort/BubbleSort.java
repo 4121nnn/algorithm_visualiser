@@ -2,16 +2,13 @@ package berserk.algoviz.algorithms.impl.sort;
 
 import berserk.algoviz.algorithms.Sortable;
 import berserk.algoviz.model.AlgoResult;
-import berserk.algoviz.model.LanguagePerformance;
-import berserk.algoviz.model.Step;
+import berserk.algoviz.model.Move;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static berserk.algoviz.enums.LanguageType.JAVA;
 import static berserk.algoviz.enums.SortType.BUBBLE_SORT;
 
 @Component
@@ -20,8 +17,7 @@ public class BubbleSort implements Sortable {
 
     @Override
     public AlgoResult sort(int[] nums) {
-        List<Step> steps = new ArrayList<>();
-        List<LanguagePerformance>  languagePerformances = new ArrayList<>();
+       List<Move> moves = new ArrayList<>();
 
         int[] copyArray1 = nums.clone();
         int[] copyArray2 = nums.clone();
@@ -31,7 +27,7 @@ public class BubbleSort implements Sortable {
         long startTime = System.nanoTime();
         for(int i = 0; i < n; i++){
             swapped = false;
-            for(int j = 1; j < n; j++){
+            for(int j = 1; j < n - i; j++){
                 if(copyArray1[j-1] >  copyArray1[j]){
                     swap(copyArray1,j-1, j);
                     swapped = true;
@@ -41,24 +37,24 @@ public class BubbleSort implements Sortable {
         }
         long endTime = System.nanoTime();
 
-        double milliSeconds = (endTime - startTime) / 1_000_000.0;
+        double timing = (endTime - startTime) / 1_000_000.0;
 
         for(int i = 0; i < n; i++){
             swapped = false;
-            for(int j = 1; j < n; j++){
-                boolean swappedForData = false;
+            for(int j = 1; j < n - i; j++){
                 if(copyArray2[j-1] >  copyArray2[j]){
+                    moves.add(new Move(j-1, copyArray2[j]));
+                    moves.add(new Move(j, copyArray2[j-1]));
                     swap(copyArray2,j-1, j);
                     swapped = true;
-                    swappedForData = true;
+                }else{
+                    moves.add(new Move(j, copyArray2[j]));
                 }
-                steps.add(new Step(j - 1, j, swappedForData));
             }
             if(!swapped) break;
         }
-        languagePerformances.add(new LanguagePerformance(JAVA, milliSeconds));
 
-        return new AlgoResult(BUBBLE_SORT, steps, languagePerformances, nums);
+        return new AlgoResult(BUBBLE_SORT, moves, nums, timing);
     }
 
     private void swap(int[] nums, int i, int j){

@@ -1,10 +1,7 @@
 package berserk.algoviz.service;
 
 import berserk.algoviz.algorithms.Sortable;
-import berserk.algoviz.algorithms.impl.sort.BubbleSort;
-import berserk.algoviz.algorithms.impl.sort.InsertionSort;
-import berserk.algoviz.algorithms.impl.sort.MergeSort;
-import berserk.algoviz.algorithms.impl.sort.SelectionSort;
+import berserk.algoviz.algorithms.impl.sort.*;
 import berserk.algoviz.enums.SortType;
 import berserk.algoviz.model.AlgoResult;
 import jakarta.annotation.PostConstruct;
@@ -27,16 +24,17 @@ public class SortService {
         sortableList.put(SELECTION_SORT, new SelectionSort());
         sortableList.put(INSERTION_SORT, new InsertionSort());
         sortableList.put(MERGE_SORT, new MergeSort());
+        sortableList.put(QUICK_SORT, new QuickSort());
     }
 
     public List<AlgoResult> getAllResults() {
-        int[] array = generateArray(100);
-        List<AlgoResult> algoResults = new ArrayList<>();
+        int[] array = generateArray(200);
+        List<AlgoResult> results = new ArrayList<>();
 
         for(SortType sortType : sortableList.keySet()){
-            algoResults.add(sortableList.get(sortType).sort(array.clone()));
+            results.add(sortableList.get(sortType).sort(array.clone()));
         }
-        return algoResults;
+        return results;
     }
 
     private int[] generateArray(int length){

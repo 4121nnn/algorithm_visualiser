@@ -2,24 +2,20 @@ package berserk.algoviz.algorithms.impl.sort;
 
 import berserk.algoviz.algorithms.Sortable;
 import berserk.algoviz.model.AlgoResult;
-import berserk.algoviz.model.LanguagePerformance;
-import berserk.algoviz.model.Step;
+import berserk.algoviz.model.Move;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static berserk.algoviz.enums.LanguageType.JAVA;
 import static berserk.algoviz.enums.SortType.MERGE_SORT;
 
 public class MergeSort implements Sortable {
 
-    private List<Step> steps;
+    private List<Move> moves;
 
     @Override
     public AlgoResult sort(int[] nums) {
-        List<AlgoResult> results = new ArrayList<>();
-        steps = new ArrayList<>();
+        moves = new ArrayList<>();
         int[] copy1 = nums.clone();
         int[] copy2 = nums.clone();
         int n = nums.length;
@@ -29,15 +25,11 @@ public class MergeSort implements Sortable {
         long end = System.nanoTime();
 
         double timing = (end - start) / 1_000_000.0;
-        List<LanguagePerformance> performances = new ArrayList<>();
-        performances.add(new LanguagePerformance(JAVA, timing));
+
 
         mergeSortWithSteps(copy2, 0, n - 1);
-        System.out.println(Arrays.toString(nums));
-       for(Step step : steps){
-           System.out.println(step);
-       }
-        return new AlgoResult(MERGE_SORT, steps, performances, nums);
+
+        return new AlgoResult(MERGE_SORT, moves, nums, timing);
     }
 
     private void mergeSort(int[] arr, int left, int  right){
@@ -98,19 +90,28 @@ public class MergeSort implements Sortable {
         int[] temp1 = new int[n1];
         int[] temp2 = new int[n2];
 
-        System.arraycopy(arr, left, temp1, 0, n1);
-        System.arraycopy(arr, mid + 1, temp2, 0, n2);
+//        System.arraycopy(arr, left, temp1, 0, n1);
+//        System.arraycopy(arr, mid + 1, temp2, 0, n2);
+        for(int i = 0; i < n1; i++){
+            temp1[i] = arr[left + i];
+            moves.add(new Move(left + i, arr[left + i]));
+        }
+        for(int i = 0; i < n2; i++){
+            temp2[i] = arr[mid + i + 1];
+            moves.add(new Move(mid + i + 1, arr[mid + i + 1]));
+        }
+
 
         int i = 0, j = 0, k = left;
 
         while(i < n1 && j < n2){
             if(temp1[i] < temp2[j]){
                 arr[k] = temp1[i];
-                steps.add(new Step(k, left + i, true));
+                moves.add(new Move(k, arr[k]));
                 i++;
             }else{
                 arr[k] = temp2[j];
-                steps.add(new Step(k, mid + j + 1, true));
+                moves.add(new Move(k, arr[k]));
                 j++;
             }
             k++;
@@ -118,14 +119,14 @@ public class MergeSort implements Sortable {
 
         while(i < n1){
             arr[k] = temp1[i];
-            steps.add(new Step(k, left + i, true));
+            moves.add(new Move(k, arr[k]));
             k++;
             i++;
         }
 
         while(j < n2){
             arr[k] = temp2[j];
-            steps.add(new Step(k, mid + j + 1, true));
+            moves.add(new Move(k, arr[k]));
             j++;
             k++;
         }
