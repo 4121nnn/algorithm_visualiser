@@ -1,24 +1,19 @@
-
+delay = 20
 
 function Sort(){
+
+function setupBars(results){
     const main = document.getElementById('display-container');
     main.innerHTML = '';
-
-    const startBtn = document.createElement('button')
+    const container = document.createElement('div');
+    container.className = "row"
+    const startBtn = document.createElement('button');
+    container.id = "sort-container"
     startBtn.id = "start-btn"
     startBtn.className = "btn mb-2 p-2"
-
-    const container = document.createElement('div');
-    container.id = "sort-container"
-    container.className = 'row'
-
     main.appendChild(startBtn);
     main.appendChild(container)
 
-    delay = 20
-
-
-function setupBars(results){
     results.forEach(result => {
         createBars( container,
                     result.nonSortedArray,
@@ -106,7 +101,7 @@ function startAnimation(moves, bars, sortType) {
                     document.getElementById(sortType + 'info').style.display = 'block';
                 }
 
-             }, delay);
+             }, delay- 0.8);
         }, index * delay); // Delay between steps
     });
 }
@@ -116,10 +111,12 @@ function handleStartButtonCLick(){
 
     if(!algorithmStarted){
          startComparison(results)
-         algorithmStarted = true;
+         button.textContent = 'Update';
+
     }else{
-        setupBars(results);
         button.textContent = 'Start';
+          const main = document.getElementById('display-container');
+            main.innerHTML = '';
         algorithmStarted = false;
     }
 }
@@ -157,7 +154,9 @@ function getName(type){
 
 setupBars(results);
 
-document.getElementById('start-btn').addEventListener('click', () => startComparison(results));
+document.getElementById('start-btn').addEventListener('click', () => handleStartButtonCLick());
+
+
 
 }
 Sort()
