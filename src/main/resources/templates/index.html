@@ -3,22 +3,28 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>AlgoViz</title>
+    <title>AlgoVis</title>
 
     <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div th:replace="~{header :: header}"></div>
 
-<div id="display-container">
-    <div th:replace="~{sort :: sort}"></div>
+<div class="navbar-dark header">
+    <div class="d-flex  justify-content-center">
+        <div th:replace="~{header :: header}"></div>
+    </div>
 </div>
 
+<div class="row d-flex p-2  justify-content-center">
+    <div th:replace="~{sort :: sort}" id="swap-container" class="col-xl-9 col-12">
+
+    </div>
+</div>
 
 <script th:inline="javascript">
-    let delay = 1;
+    let delay = 5;
     let algorithmStarted = false;
     let result;
     let pathFindResult;

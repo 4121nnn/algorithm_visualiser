@@ -1,8 +1,61 @@
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="sort" >
+<div id="swap-container" xmlns:th="http://www.thymeleaf.org" th:fragment="sort"  class="col-xl-9 col-12">
+
+    <label class="button-checkbox">
+        <input type="checkbox" id="QUICK_SORT" onchange="sortCheckBoxController('QUICK_SORT')">
+        <span class="button">Quick Sort</span>
+    </label>
+    <label class="button-checkbox">
+        <input type="checkbox" id="MERGE_SORT" onchange="sortCheckBoxController('MERGE_SORT')">
+        <span class="button">Merge Sort</span>
+    </label>
+    <label class="button-checkbox">
+        <input type="checkbox" id="INSERTION_SORT" onchange="sortCheckBoxController('INSERTION_SORT')">
+        <span class="button">Insertion Sort</span>
+    </label>
+    <label class="button-checkbox">
+        <input type="checkbox" id="SELECTION_SORT" onchange="sortCheckBoxController('SELECTION_SORT')">
+        <span class="button">Selection Sort</span>
+    </label>
+    <label class="button-checkbox">
+        <input type="checkbox" id="BUBBLE_SORT"  onchange="sortCheckBoxController('BUBBLE_SORT')">
+        <span class="button">Bubble Sort</span>
+    </label>
+
     <div id="display-container" > </div>
 
     <script th:inline="javascript">
         results = /*[[${results}]]*/;
+
+        function sortCheckBoxController(id){
+             const checkbox = document.getElementById(id);
+             const sortCard = document.getElementById(id + "-card");
+              if (checkbox.checked) {
+                localStorage.setItem(id, true);
+                sortCard.style.display = 'block'
+              } else {
+                localStorage.setItem(id, false);
+                sortCard.style.display = 'none'
+            }
+        }
+        function updateCheckBoxes() {
+          results.forEach(result => {
+            const checkboxValue = localStorage.getItem(result.sortType);
+            const checkbox = document.getElementById(result.sortType);
+            const sortCard = document.getElementById(result.sortType + "-card");
+
+            if (checkbox) { // Check if the checkbox element exists
+              if (checkboxValue === 'true') {
+                checkbox.checked = true;
+              } else {
+                checkbox.checked = false;
+              }
+            }
+          });
+        }
+
+        updateCheckBoxes();
     </script>
+
+
     <script src="script.js"></script>
 </div>

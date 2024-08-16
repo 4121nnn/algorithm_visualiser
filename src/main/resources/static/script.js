@@ -6,16 +6,20 @@ function Sort(){
 
     const startBtn = document.createElement('button')
     startBtn.id = "start-btn"
-    startBtn.className = "btn mb-2 p-2"
+    startBtn.className = "btn mb-2 pb-0 pt-0 pr-1 pl-1 fw-bold text-white d-inline mr-2"
+    startBtn.textContent = "Start"
+    const ps = document.createElement('p')
+    ps.className = "text-muted d-inline small"
+    ps.textContent = "Don't restart until animation ends."
 
     const container = document.createElement('div');
     container.id = "sort-container"
     container.className = 'row'
 
-    main.appendChild(startBtn);
-    main.appendChild(container)
 
-    delay = 20
+    main.appendChild(startBtn);
+    main.appendChild(ps)
+    main.appendChild(container)
 
 
 function setupBars(results){
@@ -33,19 +37,20 @@ function setupBars(results){
 function createBars(container, array, name, title, timing, info) {
 
     const colDiv = document.createElement('div');
-    colDiv.className = 'col-xl-6 col-sm-6 grid-margin stretch-card';
+    colDiv.className = 'mb-2 col-xl-6 col-sm-6 grid-margin stretch-card';
+    colDiv.id = name + '-card';
 
     const cardDiv = document.createElement('div');
-    cardDiv.className = 'card';
+    cardDiv.className = 'rounded-3 card ';
 
     const cardBodyDiv = document.createElement('div');
-    cardBodyDiv.className = 'card-body p-2';
+    cardBodyDiv.className = '';
 
     const cardTitleDiv = document.createElement('div');
-    cardTitleDiv.className = 'card-title d-flex align-items-center align-self-start';
+    cardTitleDiv.className = 'card-header pr-2 pl-2 pt-0 pb-0 d-flex align-items-center align-self-start';
 
     const titleP = document.createElement('p');
-    titleP.className = 'mb-0 text-muted';
+    titleP.className = 'mb-0 text-muted fw-bold fs-1';
     titleP.textContent = title;
 
     const timingP = document.createElement('p');
@@ -67,7 +72,7 @@ function createBars(container, array, name, title, timing, info) {
     cardTitleDiv.appendChild(infoP);
 
     const innerContainer = document.createElement('div');
-
+    innerContainer.className="card-body pl-1 pr-1 pt-1 pb-0"
     array.forEach(value => {
         const bar = document.createElement('div');
         bar.className = 'bar ' + name;
@@ -83,12 +88,21 @@ function createBars(container, array, name, title, timing, info) {
     colDiv.appendChild(cardDiv);
 
     container.appendChild(colDiv);
+    const checkbox = document.getElementById(name);
+
+    if(!checkbox.checked){
+        colDiv.style.display = 'none'
+    }
+
 }
 
 function startComparison(results){
     results.forEach((result, index) => {
-        const bars = document.getElementsByClassName(result.sortType);
-        startAnimation(result.moves, bars, result.sortType);
+        const checkbox = document.getElementById(result.sortType);
+        if(checkbox.checked){
+            const bars = document.getElementsByClassName(result.sortType);
+            startAnimation(result.moves, bars, result.sortType);
+        }
     })
 }
 
@@ -154,6 +168,9 @@ function getName(type){
             return "";
     }
 }
+
+
+
 
 setupBars(results);
 

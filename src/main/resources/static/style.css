@@ -1,26 +1,42 @@
+body {
+  background-color: #1A1A1A !important;
+  color: white; /* Optional: Set text color to white for better readability */
+}
+
+.header{
+    background-color: #282828;
+    color: #A9A7A1;
+}
+.logo{
+    color: #DAD7D0 !important;
+}
+.card-header{
+    background-color: #333333!important;
+}
+.card{
+    padding:0px;
+    background-color: #252525 !important;
+    border-radius: 50% !important;
+}
+.card-body{
+ background-color: #262626!important;
+}
+
 .bar {
     display: inline-block;
     width: 1%;
     margin: 0px;
-    background-color: #3498db;
+    background-color: #D38612;
 }
 
 #start-btn{
-    background-color: #D37400;
+    background-color: #6B35BE;
 }
 
 #path-find-container {
   border: 1px solid black;
   padding: 0px;
   margin: 0px;
-}
-
-.cell {
-  width: 20px;
-  height: 20px;
-  border: 1px solid lightgray;
-  box-sizing: border-box;
-  margin:0px;
 }
 
 
@@ -30,6 +46,12 @@
     max-width: 600px; /* Max width to prevent it from getting too large */
     max-height: 600px;
     margin: auto;
+}
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+    .grid-container {
+        width: 95vw;
+        height:95vw; /* Adjust height as needed */
+    }
 }
 
 .grid {
@@ -43,27 +65,64 @@
 .cell {
     width: 100%;
     height: 100%;
-    border: 1px solid #ccc;
-    background-color: white; /* Default color */
+    border: 1px solid #444444;
+    background-color: #A9A7A1; /* Default color */
 }
 
 .cur{
     background-color:#00008F;
 }
 .cell.wall {
-    background-color: #333; /* Dark color for walls */
+    background-color: #1A1A1A; /* Dark color for walls */
 }
 .highlight {
-    background-color: blue; /* Color to indicate a move */
+    background-color: #0F77E1; /* Color to indicate a move */
 }
 .path-style{
-    background-color: red;
+    background-color: #28C244;
 }
 
   .move-container {
-            margin: 20px auto;
-            text-align: center;
-        }
-        .control-buttons {
-            margin-top: 20px;
-        }
+    margin: 20px auto;
+    text-align: center;
+}
+.control-buttons {
+    margin-top: 20px;
+}
+
+.signal {
+  background-color: green;
+  border-radius: 50%;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.button-checkbox {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.button-checkbox input[type="checkbox"] {
+  display: none; /* Hide the checkbox */
+}
+
+.button-checkbox .button {
+  display: inline-block;
+  padding: 0px 4px;
+  background-color: #3C3C3C;
+  color: white;
+  border-radius: 15px;
+  border: 1px solid #3C3C3C;
+  text-align: center;
+  transition: background-color 0.3s;
+  font-size: 0.8rem;
+   font-weight: bold;
+}
+
+.button-checkbox input[type="checkbox"]:checked + .button {
+  background-color: #3C3C3C;
+  border-color: #F79F1E;
+}
+
+.button-checkbox .button:hover {
+  background-color: #005f73;
+}

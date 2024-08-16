@@ -20,9 +20,9 @@ public class SortService {
     public void init(){
         random = new Random();
         sortableList = new HashMap<>();
-//        sortableList.put(BUBBLE_SORT, new BubbleSort());
-//        sortableList.put(SELECTION_SORT, new SelectionSort());
-//        sortableList.put(INSERTION_SORT, new InsertionSort());
+        sortableList.put(BUBBLE_SORT, new BubbleSort());
+        sortableList.put(SELECTION_SORT, new SelectionSort());
+        sortableList.put(INSERTION_SORT, new InsertionSort());
         sortableList.put(MERGE_SORT, new MergeSort());
         sortableList.put(QUICK_SORT, new QuickSort());
     }
