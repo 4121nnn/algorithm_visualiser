@@ -1,10 +1,10 @@
 spring:
   application:
     name:
-      algoviz
+      algovis
   main:
     banner-mode: "off"
 
 logging:
     level:
-      root: info
+      root: warn

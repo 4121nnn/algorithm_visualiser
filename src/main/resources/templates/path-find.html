@@ -1,8 +1,9 @@
-<div id="swap-container" class="pl-4 pr-4" xmlns:th="http://www.thymeleaf.org" >
+<div id="swap-container" th:fragment="path-find"  class="pl-4 pr-4" xmlns:th="http://www.thymeleaf.org" >
+
     <div  id="display-container" class="grid-container"></div>
 
     <script th:inline="javascript">
-        pathFindResults = /*[[${results}]]*/;
+        pathFindResult = /*[[${result}]]*/;
     </script>
     <script src="path-find.js"></script>
 </div>

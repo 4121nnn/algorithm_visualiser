@@ -1,28 +1,37 @@
 function runBFS() {
-    const main = document.getElementById('display-container');
-    main.innerHtml = '';
 
-    const startBtn = document.createElement('button')
-    startBtn.id = "start-btn"
-    startBtn.className = "btn mb-2 pb-0 pt-0 pr-1 pl-1 fw-bold text-white"
-    startBtn.textContent = "Start"
 
-    const grid = document.createElement('div')
-    grid.className = "grid"
-    grid.id = "grid"
+    const gridSize = pathFindResult.matrix.length;
 
-    main.appendChild(startBtn)
-    main.appendChild(grid);
-
-    const gridSize = pathFindResults[0].matrix.length;
-
-    function draw() {
-        pathFindResults.forEach(result => {
-            generateGrid(result.matrix);
-        });
-    }
 
     function generateGrid(matrix) {
+    const main = document.getElementById('display-container');
+        main.innerHtml = '';
+
+        const grid = document.createElement('div')
+        grid.className = "grid"
+        grid.id = "grid"
+
+        const startBtn =  document.createElement('button');
+        startBtn.className="btn mb-2 pb-2 pt-2 pr-3 pl-3 fw-bold text-white";
+        startBtn.id="start-btn";
+        startBtn.textContent="Start"
+        startBtn.addEventListener('click', () => handleStartButton());
+        startBtn.style.display="block"
+
+        const updateBtn =  document.createElement('button');
+        updateBtn.setAttribute('hx-get', '/path-find?name=' + pathFindResult.type);
+        updateBtn.setAttribute('hx-target', '#swap-container');
+        updateBtn.setAttribute('hx-swap', 'outerHTML');
+        updateBtn.className="btn mb-2 pb-2 pt-2 pr-3 pl-3 fw-bold text-white";
+        updateBtn.id="update-btn";
+        updateBtn.textContent="Update"
+        updateBtn.addEventListener('click', () => handleStartButton());
+        updateBtn.style.display="none"
+
+        main.appendChild(startBtn)
+        main.appendChild(updateBtn)
+        main.appendChild(grid);
         grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
 
         for (let i = 0; i < gridSize; i++) {
@@ -44,14 +53,6 @@ function runBFS() {
                 grid.appendChild(cell);
             }
         }
-    }
-
-    draw();
-
-    function startAnimation() {
-        pathFindResults.forEach(result => {
-            animateMoves(result, 20);
-        });
     }
 
     function animateMoves(result, delay) {
@@ -82,10 +83,30 @@ function runBFS() {
             });
         }
     }
-    document.getElementById('start-btn').addEventListener('click', () => startAnimation());
+
+
+    function handleStartButton(){
+        const startBtn =  document.getElementById('start-btn');
+        const updateBtn =  document.getElementById('update-btn');
+        if(started){
+            updateBtn.style.display = 'none';
+            startBtn.style.display = 'block';
+            started = false;
+        }else{
+            started = true;
+            startBtn.style.display = 'none';
+            updateBtn.style.display = 'block';
+            animateMoves(pathFindResult, delay)
+        }
+
+    }
+    let started = false;
+
+    generateGrid(pathFindResult.matrix)
 
     const startColors = ['#11FD00', '#0BA400'];
     const endColors = ['#FD0059', '#A11800'];
+
     let currentColorIndex = 0;
 
     function changeColor() {

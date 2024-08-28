@@ -1,5 +1,8 @@
 package berserk.algoviz.enums;
 
 public enum PathFindType {
-    BFS
+    BFS,
+    A_STAR,
+    DFS,
+    DIJKSTRA;
 }

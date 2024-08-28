@@ -1,52 +1,54 @@
 package berserk.algoviz.service;
 
 import berserk.algoviz.algorithms.PathFind;
-import berserk.algoviz.algorithms.impl.pathfind.BfsPathFind;
+import berserk.algoviz.algorithms.impl.AStar;
+import berserk.algoviz.algorithms.impl.Bfs;
+import berserk.algoviz.algorithms.impl.Dfs;
+import berserk.algoviz.algorithms.impl.Dijkstra;
+import berserk.algoviz.enums.PathFindType;
 import berserk.algoviz.model.PathFindResult;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
+import static berserk.algoviz.enums.PathFindType.*;
 
 
 @Service
 public class PathFindService {
 
     private Random random;
-    private List<PathFind> pathFindList;
+    private Map<PathFindType, PathFind> pathFindMap;
+    private final int ROW = 40;
+    private final int COL = 40;
 
     @PostConstruct
     public void init(){
         random = new Random();
-        pathFindList = new ArrayList<>();
-        pathFindList.add(new BfsPathFind());
+        pathFindMap = new HashMap<>();
+        pathFindMap.put(BFS, new Bfs());
+        pathFindMap.put(A_STAR, new AStar());
+        pathFindMap.put(DFS, new Dfs());
+        pathFindMap.put(DIJKSTRA, new Dijkstra());
     }
 
-    public List<PathFindResult> getAllResults() {
-        int[][] matrix = generateMatrix(40, 40);
-        List<PathFindResult> results = new ArrayList<>();
-        for(PathFind pathFind: pathFindList){
-            results.add(pathFind.find(matrix));
-        }
-        return results;
+    public PathFindResult getByType(PathFindType type) {
+        int[][] matrix = generateMatrix();
+        return pathFindMap.get(type).find(matrix);
     }
 
-    private int[][] generateMatrix(int row, int col){
-        int[][] matrix = new int[row][col];
-        matrix[row-1][col-1] = 2;
-        int x = row * col / 4;
+    private int[][] generateMatrix(){
+        int[][] matrix = new int[ROW][COL];
+        matrix[ROW-1][COL-1] = 2;
+        int x = ROW * COL / 4;
         for(int  i = 0; i < x; i++){
-            int r = random.nextInt(row);
-            int c = random.nextInt(col);
+            int r = random.nextInt(ROW);
+            int c = random.nextInt(COL);
             matrix[r][c] = 1;
         }
         matrix[0][0] = 0;
-        matrix[row-1][col-1] = 2;
+        matrix[ROW-1][COL-1] = 2;
         return matrix;
     }
-
-
-
 }

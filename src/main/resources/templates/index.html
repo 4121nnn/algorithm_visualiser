@@ -6,6 +6,10 @@
     <title>AlgoVis</title>
 
     <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+            rel="stylesheet"
+    />
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -13,21 +17,48 @@
 
 <div class="navbar-dark header">
     <div class="d-flex  justify-content-center">
-        <div th:replace="~{header :: header}"></div>
+        <header class="navbar pt-0 pb-0 col-12 col-xl-9" style="max-width: 600px">
+            <ul class="nav">
+                <input type="radio" name="radio-btn" id="dijkstra" checked="checked"/>
+                <label hx-get="/path-find?name=DIJKSTRA"
+                       hx-target="#swap-container"
+                       hx-swap="outerHTML"
+                       for="dijkstra"
+                       class="mb-0">Dijkstra</label>
+                <input type="radio" name="radio-btn" id="a_star"  />
+                <label hx-get="/path-find?name=A_STAR"
+                       hx-target="#swap-container"
+                       hx-swap="outerHTML"
+                       for="a_star"
+                       class="mb-0">A*</label>
+                <input type="radio" name="radio-btn" id="bfs" />
+                <label hx-get="/path-find?name=BFS"
+                       hx-target="#swap-container"
+                       hx-swap="outerHTML"
+                       for="bfs"
+                       class="mb-0">Bfs</label>
+                <input type="radio" name="radio-btn" id="dfs" />
+                <label hx-get="/path-find?name=DFS"
+                       hx-target="#swap-container"
+                       hx-swap="outerHTML"
+                       for="dfs"
+                       class="mb-0">Dfs</label>
+            </ul>
+        </header>
     </div>
 </div>
 
-<div class="row d-flex p-2  justify-content-center">
-    <div th:replace="~{sort :: sort}" id="swap-container" class="col-xl-9 col-12">
+<div class="row d-flex p-2  justify-content-center" >
 
+    <div id="swap-container" th:fragment="path-find"  class="col-xl-9 col-12 pl-4 pr-4" xmlns:th="http://www.thymeleaf.org" >
+        <div  id="display-container" class="grid-container"></div>
     </div>
 </div>
 
 <script th:inline="javascript">
-    let delay = 5;
-    let algorithmStarted = false;
-    let result;
-    let pathFindResult;
+    let delay = 1;
+    let pathFindResult = /*[[${result}]]*/;
 </script>
+<script src="path-find.js"></script>
 </body>
 </html>
